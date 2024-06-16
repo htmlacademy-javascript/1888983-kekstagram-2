@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Александр Мазур](https://up.htmlacademy.ru/javascript-individual/2/user/1888983).
-* Наставник: `Неизвестно`.
+* Наставник: [Мария Филлипова](https://htmlacademy.ru/profile/wonderjs).
 
 ---
 
