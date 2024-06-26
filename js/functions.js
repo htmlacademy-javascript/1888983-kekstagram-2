@@ -20,11 +20,7 @@ function getNumbers (string) {
     }
   }
 
-  if (numbers === '') {
-    return NaN;
-  }
-
-  return numbers;
+  return numbers.length ? numbers : NaN;
 }
 
 checkMaxLegth('проверяемая строка', 15);
