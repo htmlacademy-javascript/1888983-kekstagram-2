@@ -1,4 +1,13 @@
-const PHOTO_DATA_COUNT = 25;
+const PHOTO_COUNT = 25;
+
+const rangeValues = {
+  ZERO: 0,
+  ONE: 1,
+  AVATARMAX: 6,
+  LIKESMIN: 15,
+  LIKESMAX: 200,
+  COMMENTMAX: 30,
+};
 
 const DESCRIPTIONS = [
   'Это кот',
@@ -31,11 +40,11 @@ const NAMES = [
   'Декстер',
 ];
 
-const getID = () => {
-  let lastGeneratedID = 0;
+const getId = () => {
+  let lastGeneratedId = 0;
   return function () {
-    lastGeneratedID += 1;
-    return lastGeneratedID;
+    lastGeneratedId += 1;
+    return lastGeneratedId;
   };
 };
 
@@ -46,13 +55,12 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const generatePhotoID = getID();
-const generatePhotoURL = getID();
-const generateCommentID = getID();
-const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
-const getMessage = (array) => {
-  const firstMessage = getRandomArrayElement(array);
-  const secondMessage = getRandomArrayElement(array);
+const getPhotoId = getId();
+const generateCommentId = getId();
+const getRandomArrayElement = (items) => items[getRandomInteger(rangeValues.ZERO, items.length - 1)];
+const getMessage = (items) => {
+  const firstMessage = getRandomArrayElement(items);
+  const secondMessage = getRandomArrayElement(items);
   if (firstMessage === secondMessage) {
     return `${firstMessage}`;
   } else {
@@ -60,23 +68,24 @@ const getMessage = (array) => {
   }
 };
 
-const createCommentData = () => ({
-  id: generateCommentID(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+const createComment = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(rangeValues.ONE, rangeValues.AVATARMAX)}.svg`,
   message: getMessage(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
-const createPhotoData = () => ({
-  id: generatePhotoID(),
-  url: `photos/${generatePhotoURL()}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(0, 30)}, createCommentData),
-});
+const createPhoto = () => {
+  const photoId = getPhotoId();
+  return ({
+    id: photoId,
+    url: `photos/${photoId}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(rangeValues.LIKESMIN, rangeValues.LIKESMAX),
+    comments: Array.from({length: getRandomInteger(rangeValues.ZERO, rangeValues.COMMENTMAX)}, createComment),
+  });
+};
 
-const photoData = Array.from({length: PHOTO_DATA_COUNT}, createPhotoData);
+const getPhotos = () => Array.from({length: PHOTO_COUNT}, createPhoto);
 
-const getPhotoData = () => photoData;
-
-getPhotoData();
+getPhotos();
