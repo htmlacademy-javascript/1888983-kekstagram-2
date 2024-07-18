@@ -1,12 +1,18 @@
 const PHOTO_COUNT = 25;
 
-const rangeValues = {
-  ZERO: 0,
-  ONE: 1,
-  AVATARMAX: 6,
-  LIKESMIN: 15,
-  LIKESMAX: 200,
-  COMMENTMAX: 30,
+const Like = {
+  MIN: 15,
+  MAX: 200
+};
+
+const Avatar = {
+  MIN: 1,
+  MAX: 6
+};
+
+const Comment = {
+  MIN: 0,
+  MAX: 30
 };
 
 const DESCRIPTIONS = [
@@ -57,7 +63,7 @@ const getRandomInteger = (min, max) => {
 
 const getPhotoId = getId();
 const generateCommentId = getId();
-const getRandomArrayElement = (items) => items[getRandomInteger(rangeValues.ZERO, items.length - 1)];
+const getRandomArrayElement = (items) => items[getRandomInteger(0, items.length - 1)];
 const getMessage = (items) => {
   const firstMessage = getRandomArrayElement(items);
   const secondMessage = getRandomArrayElement(items);
@@ -70,7 +76,7 @@ const getMessage = (items) => {
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(rangeValues.ONE, rangeValues.AVATARMAX)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(Avatar.MIN, Avatar.MAX)}.svg`,
   message: getMessage(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
@@ -81,8 +87,8 @@ const createPhoto = () => {
     id: photoId,
     url: `photos/${photoId}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(rangeValues.LIKESMIN, rangeValues.LIKESMAX),
-    comments: Array.from({length: getRandomInteger(rangeValues.ZERO, rangeValues.COMMENTMAX)}, createComment),
+    likes: getRandomInteger(Like.MIN, Like.MAX),
+    comments: Array.from({length: getRandomInteger(Comment.MIN, Comment.MAX)}, createComment),
   });
 };
 
