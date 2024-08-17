@@ -1,4 +1,4 @@
-import {getId, getRandomInteger, getRandomArrayElement} from './utils';
+import {getId, getRandomInteger, getRandomArrayElement} from './utils.js';
 
 const PHOTO_COUNT = 25;
 
