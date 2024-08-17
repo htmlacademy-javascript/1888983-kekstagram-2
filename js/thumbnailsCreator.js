@@ -1,4 +1,4 @@
-import {getPhotos} from './data';
+import {getPhotos} from './data.js';
 
 const THUMBNAIL_COUNT = 25;
 
