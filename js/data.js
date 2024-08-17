@@ -1,7 +1,5 @@
 import {getId, getRandomInteger, getRandomArrayElement} from './utils';
 
-const PHOTO_COUNT = 25;
-
 const Like = {
   MIN: 15,
   MAX: 200
@@ -79,6 +77,6 @@ const createPhoto = () => {
   });
 };
 
-const getPhotos = () => Array.from({length: PHOTO_COUNT}, createPhoto);
+const getPhotos = (count) => Array.from({length: count}, createPhoto);
 
 export {getPhotos};

@@ -1,3 +1,1 @@
-import {getPhotos} from './data';
-
-getPhotos();
+import './thumbnailsCreator.js';
