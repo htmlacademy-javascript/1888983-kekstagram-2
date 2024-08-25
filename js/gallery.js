@@ -13,7 +13,7 @@ const photos = getPhotos();
 
 createThumbnails(photos, thumbnailListElement);
 
-// const renderBigPicture = () => {
+// const renderBigPicture = (picture) => {
 
 // };
 
@@ -42,6 +42,7 @@ thumbnailListElement.addEventListener('click', (evt) => {
     openBigPicture();
     document.addEventListener('keydown', onDocumentKeydown);
   }
+  const currentPicture = photos.find((photo) => photo.id === evt.target.dataset.id);
 });
 
 bigPictureCloseButton.addEventListener('click', () => {
