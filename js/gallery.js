@@ -2,6 +2,8 @@ import {getPhotos} from './data.js';
 import {createThumbnails} from './thumbnails.js';
 import {isEscapeKey} from './utils.js';
 
+const COMMENT_COUNT = 5;
+
 const thumbnailListElement = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel');
@@ -13,9 +15,20 @@ const photos = getPhotos();
 
 createThumbnails(photos, thumbnailListElement);
 
-// const renderBigPicture = (picture) => {
+const commentsCount = (comments) => {
+  if (comments.length < 5) {
+    return comments.length;
+  }
+  return COMMENT_COUNT;
+}
 
-// };
+const renderBigPicture = ({url, likes, description, comments}) => {
+  bigImage.querySelector('img').src = url;
+  bigPicture.querySelector('.likes-count').textContent = likes;
+  bigPicture.querySelector('.social__comment-shown-count').textContent = commentsCount(comments);
+  bigPicture.querySelector('.social__comment-total-count').textContent = comments.length;
+  bigPicture.querySelector('.social__caption').textContent = description;
+};
 
 const openBigPicture = () => {
   bigPicture.classList.remove('hidden');
@@ -42,7 +55,8 @@ thumbnailListElement.addEventListener('click', (evt) => {
     openBigPicture();
     document.addEventListener('keydown', onDocumentKeydown);
   }
-  const currentPicture = photos.find((photo) => photo.id === evt.target.dataset.id);
+  const currentPicture = photos.find((photo) => photo.id === +evt.target.dataset.id);
+  renderBigPicture(currentPicture);
 });
 
 bigPictureCloseButton.addEventListener('click', () => {
