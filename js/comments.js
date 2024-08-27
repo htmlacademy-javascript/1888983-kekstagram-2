@@ -7,6 +7,8 @@ const commentCountElement = document.querySelector('.social__comment-count');
 const commentCountShownElement = commentCountElement.querySelector('.social__comment-shown-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 
+let bigPictureComments = [];
+
 // Проверка на случай, если комментариев меньше 5.
 
 const checkCommentsCount = (comments) => {
@@ -40,23 +42,21 @@ const renderCommentCount = (comments) => {
   commentCountElement.querySelector('.social__comment-total-count').textContent = comments.length;
 };
 
-const renderMoreComments = (comments) => {
+const renderMoreComments = () => {
   const fragment = document.createDocumentFragment();
-  for (let i = commentCountShownElement.textContent; i < checkNewCommentsCount(+commentCountShownElement.textContent, comments); i++) {
-    const currentComment = comments[i];
+  for (let i = commentCountShownElement.textContent; i < checkNewCommentsCount(+commentCountShownElement.textContent, bigPictureComments); i++) {
+    const currentComment = bigPictureComments[i];
     fragment.append(getComment(currentComment));
   }
   commentsListElement.append(fragment); // рисует и прибавляет 5 комментариев
-  commentCountShownElement.textContent = checkNewCommentsCount(+commentCountShownElement.textContent, comments); // обновляет счётчик
-  if (+commentCountShownElement.textContent === comments.length) {
+  commentCountShownElement.textContent = checkNewCommentsCount(+commentCountShownElement.textContent, bigPictureComments); // обновляет счётчик
+  if (+commentCountShownElement.textContent === bigPictureComments.length) {
     commentsLoaderElement.classList.add('hidden');
   } // скрывает кнопку, когда максимум по счётчику
 };
 
 const renderComments = (comments) => {
-  commentsLoaderElement.addEventListener('click', () => {
-    renderMoreComments(comments);
-  });
+  bigPictureComments = comments;
   const fragment = document.createDocumentFragment();
   renderCommentCount(comments);
   for (let i = 0; i < checkCommentsCount(comments); i++) {
@@ -71,4 +71,4 @@ const renderComments = (comments) => {
   }
 };
 
-export {renderComments};
+export {renderComments, renderMoreComments};
