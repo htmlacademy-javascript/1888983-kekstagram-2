@@ -5,6 +5,7 @@ const bodyElement = document.querySelector('body');
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureCloseButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 const bigImageElement = bigPictureElement.querySelector('.big-picture__img');
+const commentCountShownElement = document.querySelector('.social__comment-shown-count');
 
 const renderBigPicture = ({url, likes, description, comments}) => {
   bigImageElement.querySelector('img').src = url;
@@ -24,6 +25,7 @@ const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentCountShownElement.textContent = '';
 };
 
 function onDocumentKeydown (evt) {
