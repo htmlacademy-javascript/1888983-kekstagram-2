@@ -4,16 +4,12 @@ const commentsListElement = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 
 const commentCountElement = document.querySelector('.social__comment-count');
+const commentCountShownElement = commentCountElement.querySelector('.social__comment-shown-count');
+const commentCountTotalElement = commentCountElement.querySelector('.social__comment-total-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 
-// Проверка на случай, если комментариев меньше 5.
-
-const checkCommentsCount = (comments) => {
-  if (comments.length < 5) {
-    return comments.length;
-  }
-  return COMMENT_COUNT;
-};
+let comments;
+let shownComments = 0;
 
 const getComment = ({avatar, message, name}) => {
   const commentElement = commentTemplate.cloneNode(true);
@@ -24,21 +20,33 @@ const getComment = ({avatar, message, name}) => {
   return commentElement;
 };
 
-const changeCommentCount = (comments) => {
-  commentCountElement.querySelector('.social__comment-shown-count').textContent = checkCommentsCount(comments);
-  commentCountElement.querySelector('.social__comment-total-count').textContent = comments.length;
-  commentCountElement.classList.add('hidden');
-  commentsLoaderElement.classList.add('hidden');
+const renderComments = (initialComments) => {
+  if (initialComments) {
+    comments = initialComments;
+    shownComments = 0;
+    commentsListElement.innerHTML = '';
+    commentsLoaderElement.classList.remove('hidden');
+    commentCountTotalElement.textContent = initialComments.length;
+  }
+
+  const newCommentsCount = Math.min(comments.length, shownComments + COMMENT_COUNT);
+
+  const fragment = document.createDocumentFragment();
+  for (let i = shownComments; i < newCommentsCount; i++) {
+    fragment.append(getComment(comments[i]));
+  }
+  commentsListElement.append(fragment);
+
+  shownComments = newCommentsCount;
+  commentCountShownElement.textContent = shownComments;
+
+  if (shownComments === comments.length) {
+    commentsLoaderElement.classList.add('hidden');
+  }
 };
 
-const renderComments = (comments) => {
-  const fragment = document.createDocumentFragment();
-  changeCommentCount(comments);
-  comments.forEach((comment) => {
-    fragment.append(getComment(comment));
-  });
-  commentsListElement.innerHTML = '';
-  commentsListElement.append(fragment);
-};
+commentsLoaderElement.addEventListener('click', () => {
+  renderComments();
+});
 
 export {renderComments};
