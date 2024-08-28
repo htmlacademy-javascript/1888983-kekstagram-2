@@ -5,28 +5,11 @@ const commentTemplate = document.querySelector('#comment').content.querySelector
 
 const commentCountElement = document.querySelector('.social__comment-count');
 const commentCountShownElement = commentCountElement.querySelector('.social__comment-shown-count');
+const commentCountTotalElement = commentCountElement.querySelector('.social__comment-total-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 
-let bigPictureComments = [];
-
-// Проверка на случай, если комментариев меньше 5.
-
-const checkCommentsCount = (comments) => {
-  if (comments.length < 5) {
-    return comments.length;
-  }
-  return COMMENT_COUNT;
-};
-
-// Проверка обновлённого счётчика.
-
-const checkNewCommentsCount = (currentCount, comments) => {
-  const newCount = currentCount += COMMENT_COUNT;
-  if (newCount > comments.length) {
-    return comments.length;
-  }
-  return newCount;
-};
+let comments;
+let shownComments = 0;
 
 const getComment = ({avatar, message, name}) => {
   const commentElement = commentTemplate.cloneNode(true);
@@ -37,38 +20,33 @@ const getComment = ({avatar, message, name}) => {
   return commentElement;
 };
 
-const renderCommentCount = (comments) => {
-  commentCountShownElement.textContent = checkCommentsCount(comments);
-  commentCountElement.querySelector('.social__comment-total-count').textContent = comments.length;
-};
-
-const renderMoreComments = () => {
-  const fragment = document.createDocumentFragment();
-  for (let i = commentCountShownElement.textContent; i < checkNewCommentsCount(+commentCountShownElement.textContent, bigPictureComments); i++) {
-    const currentComment = bigPictureComments[i];
-    fragment.append(getComment(currentComment));
+const renderComments = (initialComments) => {
+  if (initialComments) {
+    comments = initialComments;
+    shownComments = 0;
+    commentsListElement.innerHTML = '';
+    commentsLoaderElement.classList.remove('hidden');
+    commentCountTotalElement.textContent = initialComments.length;
   }
-  commentsListElement.append(fragment); // рисует и прибавляет 5 комментариев
-  commentCountShownElement.textContent = checkNewCommentsCount(+commentCountShownElement.textContent, bigPictureComments); // обновляет счётчик
-  if (+commentCountShownElement.textContent === bigPictureComments.length) {
-    commentsLoaderElement.classList.add('hidden');
-  } // скрывает кнопку, когда максимум по счётчику
-};
 
-const renderComments = (comments) => {
-  bigPictureComments = comments;
+  const newCommentsCount = Math.min(comments.length, shownComments + COMMENT_COUNT);
+
   const fragment = document.createDocumentFragment();
-  renderCommentCount(comments);
-  for (let i = 0; i < checkCommentsCount(comments); i++) {
-    const currentComment = comments[i];
-    fragment.append(getComment(currentComment));
+  for (let i = shownComments; i < newCommentsCount; i++) {
+    fragment.append(getComment(comments[i]));
   }
-  commentsListElement.innerHTML = '';
   commentsListElement.append(fragment);
-  commentsLoaderElement.classList.remove('hidden');
-  if (+commentCountShownElement.textContent === comments.length) {
+
+  shownComments = newCommentsCount;
+  commentCountShownElement.textContent = shownComments;
+
+  if (shownComments === comments.length) {
     commentsLoaderElement.classList.add('hidden');
   }
 };
 
-export {renderComments, renderMoreComments};
+commentsLoaderElement.addEventListener('click', () => {
+  renderComments();
+});
+
+export {renderComments};
