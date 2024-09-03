@@ -1,3 +1,5 @@
+const bodyElement = document.querySelector('body');
+
 const getId = () => {
   let lastGeneratedId = 0;
   return function () {
@@ -17,4 +19,6 @@ const getRandomArrayElement = (items) => items[getRandomInteger(0, items.length 
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey};
+const toggleModalOpen = () => bodyElement.classList.toggle('modal-open');
+
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen};
