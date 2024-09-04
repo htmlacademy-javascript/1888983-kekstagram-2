@@ -21,4 +21,10 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const toggleModalOpen = () => bodyElement.classList.toggle('modal-open');
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen};
+const disableEscEvt = (element) => {
+  element.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+};
+
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt};

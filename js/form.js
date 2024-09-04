@@ -1,7 +1,7 @@
-import {isEscapeKey, toggleModalOpen} from './utils.js';
+import './form-validation.js';
+import {isEscapeKey, toggleModalOpen, disableEscEvt} from './utils.js';
 
-
-const formElement = document.querySelector('.img-upload');
+const formElement = document.querySelector('.img-upload__form');
 const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
 const formCloseElement = formElement.querySelector('.img-upload__cancel');
@@ -21,17 +21,15 @@ const closeForm = () => {
   uploadControlElement.value = '';
 };
 
-
 function onDocumentKeydown (evt) {
-  if (hastagTextElement === document.activeElement || descriptionTextElement === document.activeElement) {
-    return evt;
-    // подглядел в интернетах и понимаю, что делает (ничего). Но как это сделать через предложенный метод stopPropagation()?
-  }
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeForm();
   }
 }
+
+disableEscEvt(hastagTextElement);
+disableEscEvt(descriptionTextElement);
 
 uploadControlElement.addEventListener('change', openForm);
 formCloseElement.addEventListener('click', closeForm);
