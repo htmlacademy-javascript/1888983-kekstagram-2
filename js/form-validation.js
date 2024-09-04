@@ -25,7 +25,7 @@ const validateLength = () => {
 
 const validateFormat = () => {
   const hastags = getHastagsArray();
-  return hastags.every((hastag) => regex.test(hastag));
+  return hastags.every((hastag) => regex.test(hastag)) || hastags[0] === '';
 };
 
 const validateDuplicates = () => {
@@ -51,12 +51,11 @@ const validateHastags = () => {
   pristine.addValidator(hastagTextElement, validateDuplicates, 'Хэштеги не должны повторяться');
 };
 
-const validateComments = (form) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    pristine.validate();
-  });
-};
-
 validateHastags();
-validateComments(formElement);
+
+formElement.addEventListener('submit', (evt) => {
+  const isValid = pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
+});
