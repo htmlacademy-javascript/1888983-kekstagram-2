@@ -1,7 +1,7 @@
-const formElement = document.querySelector('.img-upload__form');
-const hastagTextElement = formElement.querySelector('.text__hashtags');
+import {formElement, hastagTextElement} from './utils.js';
 
 const MAX_HASTAGS = 5;
+
 const regex = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const pristine = new Pristine(formElement,
@@ -13,15 +13,9 @@ const pristine = new Pristine(formElement,
   },
   true);
 
-const getHastagsArray = () => {
-  const hastags = hastagTextElement.value.split(' ');
-  return hastags;
-};
+const getHastagsArray = () => hastagTextElement.value.replace(/\s+/g, ' ').trim().toLowerCase().split(' ');
 
-const validateLength = () => {
-  const hastags = getHastagsArray();
-  return hastags.length <= MAX_HASTAGS;
-};
+const validateLength = () => getHastagsArray().length <= MAX_HASTAGS;
 
 const validateFormat = () => {
   const hastags = getHastagsArray();
@@ -30,32 +24,17 @@ const validateFormat = () => {
 
 const validateDuplicates = () => {
   const hastags = getHastagsArray();
-  const set = new Set;
-  hastags.forEach((hastag) => {
-    set.add(hastag);
-  });
+  const set = new Set(hastags);
   return set.size === hastags.length;
-  // const newArray = []; // альтернатива
-  // for (let i = 0; i < hastags.length; i++) {
-  //   if (newArray.includes(hastags[i])) {
-  //     return false;
-  //   }
-  //   newArray.push(hastags[i]);
-  // }
-  // return true;
 };
 
-const validateHastags = () => {
-  pristine.addValidator(hastagTextElement, validateLength, 'Не более 5 хэштегов');
-  pristine.addValidator(hastagTextElement, validateFormat, 'Каждый хэштег: должен начинаться с #, от 2 до 20 символов, только буквы и числа');
-  pristine.addValidator(hastagTextElement, validateDuplicates, 'Хэштеги не должны повторяться');
-};
 
-validateHastags();
+pristine.addValidator(hastagTextElement, validateLength, `Не более ${MAX_HASTAGS} хэштегов`);
+pristine.addValidator(hastagTextElement, validateFormat, 'Каждый хэштег: должен начинаться с #, от 2 до 20 символов, только буквы и числа');
+pristine.addValidator(hastagTextElement, validateDuplicates, 'Хэштеги не должны повторяться');
 
-formElement.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+const validateForm = () => pristine.validate();
+
+const resetValidation = () => pristine.reset;
+
+export {validateForm, resetValidation};
