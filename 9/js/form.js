@@ -1,11 +1,9 @@
-import './form-validation.js';
-import {isEscapeKey, toggleModalOpen, disableEscEvt} from './utils.js';
+import {validateForm, resetValidation} from './form-validation.js';
+import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
 
-const formElement = document.querySelector('.img-upload__form');
 const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
 const formCloseElement = formElement.querySelector('.img-upload__cancel');
-const hastagTextElement = formElement.querySelector('.text__hashtags');
 const descriptionTextElement = formElement.querySelector('.text__description');
 
 const openForm = () => {
@@ -18,6 +16,7 @@ const closeForm = () => {
   formOverlayElement.classList.add('hidden');
   toggleModalOpen();
   document.removeEventListener('keydown', onDocumentKeydown);
+  resetValidation();
   uploadControlElement.value = '';
 };
 
@@ -33,3 +32,10 @@ disableEscEvt(descriptionTextElement);
 
 uploadControlElement.addEventListener('change', openForm);
 formCloseElement.addEventListener('click', closeForm);
+
+formElement.addEventListener('submit', (evt) => {
+  const isValid = validateForm();
+  if (!isValid) {
+    evt.preventDefault();
+  }
+});
