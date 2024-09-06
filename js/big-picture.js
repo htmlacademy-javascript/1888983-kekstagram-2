@@ -1,7 +1,6 @@
 import {renderComments} from './comments.js';
-import {isEscapeKey} from './utils.js';
+import {isEscapeKey, toggleModalOpen} from './utils.js';
 
-const bodyElement = document.querySelector('body');
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureCloseButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 const bigImageElement = bigPictureElement.querySelector('.big-picture__img');
@@ -15,14 +14,14 @@ const renderBigPicture = ({url, likes, description, comments}) => {
 
 const openBigPicture = (рicture) => {
   bigPictureElement.classList.remove('hidden');
-  bodyElement.classList.add('modal-open');
+  toggleModalOpen();
   renderBigPicture(рicture);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
-  bodyElement.classList.remove('modal-open');
+  toggleModalOpen();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 

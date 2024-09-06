@@ -1,3 +1,7 @@
+const bodyElement = document.querySelector('body');
+const formElement = document.querySelector('.img-upload__form');
+const hastagTextElement = formElement.querySelector('.text__hashtags');
+
 const getId = () => {
   let lastGeneratedId = 0;
   return function () {
@@ -17,4 +21,12 @@ const getRandomArrayElement = (items) => items[getRandomInteger(0, items.length 
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey};
+const toggleModalOpen = () => bodyElement.classList.toggle('modal-open');
+
+const disableEscEvt = (element) => {
+  element.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+};
+
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement};
