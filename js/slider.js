@@ -1,7 +1,5 @@
 import {formElement, imagePreviewElement} from './utils.js';
 
-const EFFECT_DEFAULT = 100;
-
 const effectsConfig = {
   none: {
     filter: 'none',
@@ -47,10 +45,10 @@ const sliderValueElement = sliderContainerElement.querySelector('.effect-level__
 const imageElement = imagePreviewElement.querySelector('img');
 const effectsListElement = formElement.querySelector('.effects__list');
 
-let currentFilter;
+let currentFilter = 'none';
 
 const resetFilter = () => {
-  imagePreviewElement.style.filter = '';
+  imageElement.style.filter = 'none';
 };
 
 const hideSlider = () => {
@@ -64,7 +62,7 @@ const updateSlider = ({range, step}) => {
       max: range[1]
     },
     step: step,
-    start: EFFECT_DEFAULT
+    start: range[1]
   });
 };
 
@@ -95,6 +93,7 @@ noUiSlider.create(sliderElement, {
 
 sliderElement.noUiSlider.on('update', () => {
   sliderValueElement.value = sliderElement.noUiSlider.get();
+  applyEffect(effectsConfig[currentFilter]);
 });
 
 effectsListElement.addEventListener('click', (evt) => {
