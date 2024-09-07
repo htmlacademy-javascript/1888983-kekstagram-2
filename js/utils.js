@@ -1,6 +1,7 @@
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const hastagTextElement = formElement.querySelector('.text__hashtags');
+const imagePreviewElement = formElement.querySelector('.img-upload__preview');
 
 const getId = () => {
   let lastGeneratedId = 0;
@@ -29,4 +30,4 @@ const disableEscEvt = (element) => {
   });
 };
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement};
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imagePreviewElement};

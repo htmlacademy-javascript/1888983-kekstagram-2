@@ -1,4 +1,4 @@
-import {formElement} from './utils.js';
+import {formElement, imagePreviewElement} from './utils.js';
 
 const SCALE_STEP = 25;
 
@@ -10,11 +10,9 @@ const Scale = {
 const scaleValueElement = formElement.querySelector('.scale__control--value');
 const scaleSmallerElement = formElement.querySelector('.scale__control--smaller');
 const scaleBiggerElement = formElement.querySelector('.scale__control--bigger');
-const imagePreviewElement = formElement.querySelector('.img-upload__preview');
 
-const resetStyles = () => {
+const resetScale = () => {
   imagePreviewElement.style.transform = '';
-  // imagePreviewElement.style.filter = '';
 };
 
 const changeScale = (scale) => {
@@ -40,4 +38,4 @@ const scaleUp = () => {
 scaleSmallerElement.addEventListener('click', scaleDown);
 scaleBiggerElement.addEventListener('click', scaleUp);
 
-export {resetStyles};
+export {resetScale};
