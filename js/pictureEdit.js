@@ -13,6 +13,7 @@ const scaleBiggerElement = formElement.querySelector('.scale__control--bigger');
 
 const resetScale = () => {
   imagePreviewElement.style.transform = '';
+  scaleValueElement.value = `${Scale.MAX}%`;
 };
 
 const changeScale = (scale) => {
