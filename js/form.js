@@ -1,5 +1,6 @@
 import {validateForm, resetValidation} from './form-validation.js';
 import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
+import {resetStyles} from './pictureEdit.js';
 
 const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
@@ -17,6 +18,7 @@ const closeForm = () => {
   toggleModalOpen();
   document.removeEventListener('keydown', onDocumentKeydown);
   resetValidation();
+  resetStyles();
   uploadControlElement.value = '';
 };
 
