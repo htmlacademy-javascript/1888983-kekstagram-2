@@ -1,5 +1,7 @@
 import {validateForm, resetValidation} from './form-validation.js';
 import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
+import {resetScale} from './scale.js';
+import {hideSlider, resetFilter} from './effects.js';
 
 const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
@@ -10,6 +12,7 @@ const openForm = () => {
   formOverlayElement.classList.remove('hidden');
   toggleModalOpen();
   document.addEventListener('keydown', onDocumentKeydown);
+  hideSlider();
 };
 
 const closeForm = () => {
@@ -17,6 +20,8 @@ const closeForm = () => {
   toggleModalOpen();
   document.removeEventListener('keydown', onDocumentKeydown);
   resetValidation();
+  resetScale();
+  resetFilter();
   uploadControlElement.value = '';
 };
 
