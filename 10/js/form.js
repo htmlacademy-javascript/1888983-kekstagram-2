@@ -1,7 +1,7 @@
 import {validateForm, resetValidation} from './form-validation.js';
 import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
-import {resetScale} from './pictureEdit.js';
-import {hideSlider, resetFilter} from './slider.js';
+import {resetScale} from './scale.js';
+import {hideSlider, resetFilter} from './effects.js';
 
 const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
