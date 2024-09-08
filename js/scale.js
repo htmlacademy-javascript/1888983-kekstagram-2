@@ -1,4 +1,4 @@
-import {formElement, imagePreviewElement} from './utils.js';
+import {formElement, imageElement} from './utils.js';
 
 const Scale = {
   SCALE_STEP: 25,
@@ -11,13 +11,13 @@ const scaleSmallerElement = formElement.querySelector('.scale__control--smaller'
 const scaleBiggerElement = formElement.querySelector('.scale__control--bigger');
 
 const resetScale = () => {
-  imagePreviewElement.style.transform = '';
+  imageElement.style.transform = '';
   scaleValueElement.value = `${Scale.MAX}%`;
 };
 
 const changeScale = (scale) => {
   scaleValueElement.value = `${scale}%`;
-  imagePreviewElement.style.transform = `scale(${scale / 100})`;
+  imageElement.style.transform = `scale(${scale / 100})`;
 };
 
 const onSmallerButtonClick = () => {
