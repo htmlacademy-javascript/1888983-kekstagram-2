@@ -1,8 +1,7 @@
 import {formElement, imagePreviewElement} from './utils.js';
 
-const SCALE_STEP = 25;
-
 const Scale = {
+  SCALE_STEP: 25,
   MIN: 25,
   MAX: 100
 };
@@ -18,25 +17,24 @@ const resetScale = () => {
 
 const changeScale = (scale) => {
   scaleValueElement.value = `${scale}%`;
-  const newDecimalScale = scale / 100;
-  imagePreviewElement.style.transform = `scale(${newDecimalScale})`;
+  imagePreviewElement.style.transform = `scale(${scale / 100})`;
 };
 
-const scaleDown = () => {
-  const newScale = parseInt(scaleValueElement.value, 10) - SCALE_STEP;
+const onSmallerButtonClick = () => {
+  const newScale = parseInt(scaleValueElement.value, 10) - Scale.SCALE_STEP;
   if (newScale >= Scale.MIN) {
     changeScale(newScale);
   }
 };
 
-const scaleUp = () => {
-  const newScale = parseInt(scaleValueElement.value, 10) + SCALE_STEP;
+const onBiggerButtonClick = () => {
+  const newScale = parseInt(scaleValueElement.value, 10) + Scale.SCALE_STEP;
   if (newScale <= Scale.MAX) {
     changeScale(newScale);
   }
 };
 
-scaleSmallerElement.addEventListener('click', scaleDown);
-scaleBiggerElement.addEventListener('click', scaleUp);
+scaleSmallerElement.addEventListener('click', onSmallerButtonClick);
+scaleBiggerElement.addEventListener('click', onBiggerButtonClick);
 
 export {resetScale};
