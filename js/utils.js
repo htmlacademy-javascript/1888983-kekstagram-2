@@ -30,4 +30,4 @@ const disableEscEvt = (element) => {
   });
 };
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imageElement};
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imageElement, bodyElement};

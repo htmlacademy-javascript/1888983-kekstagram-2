@@ -35,6 +35,6 @@ pristine.addValidator(hastagTextElement, validateDuplicates, 'Хэштеги н�
 
 const validateForm = () => pristine.validate();
 
-const resetValidation = () => pristine.reset;
+const resetValidation = () => pristine.reset();
 
 export {validateForm, resetValidation};

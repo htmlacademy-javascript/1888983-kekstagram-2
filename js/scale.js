@@ -1,7 +1,7 @@
 import {formElement, imageElement} from './utils.js';
 
 const Scale = {
-  SCALE_STEP: 25,
+  STEP: 25,
   MIN: 25,
   MAX: 100
 };
@@ -21,14 +21,14 @@ const changeScale = (scale) => {
 };
 
 const onSmallerButtonClick = () => {
-  const newScale = parseInt(scaleValueElement.value, 10) - Scale.SCALE_STEP;
+  const newScale = parseInt(scaleValueElement.value, 10) - Scale.STEP;
   if (newScale >= Scale.MIN) {
     changeScale(newScale);
   }
 };
 
 const onBiggerButtonClick = () => {
-  const newScale = parseInt(scaleValueElement.value, 10) + Scale.SCALE_STEP;
+  const newScale = parseInt(scaleValueElement.value, 10) + Scale.STEP;
   if (newScale <= Scale.MAX) {
     changeScale(newScale);
   }
