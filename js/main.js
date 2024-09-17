@@ -1,2 +1,4 @@
 import './form.js';
-import './api.js';
+import {getData} from './api.js';
+
+getData();
