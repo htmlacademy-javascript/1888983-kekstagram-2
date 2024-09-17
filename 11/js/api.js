@@ -25,7 +25,7 @@ const showAlert = (alert) => {
   bodyElement.append(alert);
   document.addEventListener('keydown', onDocumentKeydown);
   alert.addEventListener('click', (evt) => {
-    if (!evt.target.matches('.success__inner')) {
+    if (evt.target.matches('.success')) {
       closeAlert();
     }
   });
