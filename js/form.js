@@ -3,6 +3,7 @@ import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElem
 import {resetScale} from './scale.js';
 import {hideSlider, resetFilter} from './effects.js';
 import {sendData} from './api.js';
+import {showMessage} from './messages.js';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -34,7 +35,7 @@ const closeForm = () => {
 };
 
 function onDocumentKeydown (evt) {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !document.querySelector('.error')) {
     evt.preventDefault();
     closeForm();
   }
@@ -56,11 +57,28 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-formElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const isValid = validateForm();
-  if (isValid) {
-    blockSubmitButton();
-    sendData(new FormData(evt.target), closeForm, unblockSubmitButton);
-  }
-});
+
+const setFormSubmit = () => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = validateForm();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        // .then(() => {
+        //   throw new Error();
+        // })
+        // проверка вывода ошибки
+        .then(() => {
+          closeForm();
+          showMessage('success');
+        })
+        .catch(() => {
+          showMessage('error');
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
+export {setFormSubmit};
