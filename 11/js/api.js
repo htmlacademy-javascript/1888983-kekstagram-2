@@ -1,79 +1,34 @@
-import {initGallery} from './gallery.js';
-import {isEscapeKey, bodyElement} from './utils.js';
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
-const ALERT_SHOW_TIME = 5000;
-
-const errorElement = document.querySelector('#data-error').content.querySelector('.data-error');
-const sendSuccessElement = document.querySelector('#success').content.querySelector('.success');
-const successButtonElement = sendSuccessElement.querySelector('.success__button');
-const sendErrorElement = document.querySelector('#error').content.querySelector('.error');
-const errorButtonElement = sendErrorElement.querySelector('.error__button');
-
-const showDataError = () => {
-  bodyElement.append(errorElement);
-
-  setTimeout(() => {
-    errorElement.remove();
-  }, ALERT_SHOW_TIME);
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/'
 };
 
-const closeAlert = () => {
-  bodyElement.lastChild.remove();
+const Method = {
+  GET: 'GET',
+  POST: 'POST'
 };
 
-const showAlert = (alert) => {
-  bodyElement.append(alert);
-  document.addEventListener('keydown', onDocumentKeydown);
-  alert.addEventListener('click', (evt) => {
-    if (evt.target.matches('.success')) {
-      closeAlert();
-    }
-  });
+const ErrorText = {
+  GET_DATA: 'Не удалось получить данные. Попробуйте обновить страницу.',
+  SEND_DATA: 'Не удалось отправить данные. Попробуйте ещё раз.'
 };
 
-function onDocumentKeydown (evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeAlert();
-  }
-}
-
-successButtonElement.addEventListener('click', closeAlert);
-errorButtonElement.addEventListener('click', closeAlert);
-
-// тут есть утечка обработчиков, то есть они плодятся при каждом открытии окна. Как их сбросить, я пока не придумал
-
-const getData = () => {
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
+const load = (route, errorText, method = Method.GET, body = null) =>
+  fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
-      if (response.ok) {
-        return response.json();
+      if (!response.ok) {
+        throw new Error();
       }
-      throw new Error('Не удалось получить данные');
+      return response.json();
     })
-    .then((photos) => initGallery(photos))
-    .catch(showDataError);
-};
+    .catch(() => {
+      throw new Error(errorText);
+    });
 
-const sendData = (data, onSuccess, onEnd) => {
-  fetch(
-    'https://31.javascript.htmlacademy.pro/kekstagram',
-    {
-      method: 'POST',
-      body: data,
-    },
-  )
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-        showAlert(sendSuccessElement);
-        return response.json();
-      } else {
-        throw new Error('Не удалось отправить данные');
-      }
-    })
-    .catch(() => showAlert(sendErrorElement))
-    .finally(onEnd);
-};
+const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
+
+const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
 
 export {getData, sendData};
