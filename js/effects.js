@@ -1,4 +1,4 @@
-import {formElement, imagePreviewElement} from './utils.js';
+import {formElement, imageElement} from './utils.js';
 
 const effectsConfig = {
   none: {
@@ -42,7 +42,6 @@ const effectsConfig = {
 const sliderContainerElement = formElement.querySelector('.img-upload__effect-level');
 const sliderElement = sliderContainerElement.querySelector('.effect-level__slider');
 const sliderValueElement = sliderContainerElement.querySelector('.effect-level__value');
-const imageElement = imagePreviewElement.querySelector('img');
 const effectsListElement = formElement.querySelector('.effects__list');
 
 let currentFilter = 'none';
