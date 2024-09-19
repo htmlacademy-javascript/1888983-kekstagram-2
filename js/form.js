@@ -44,8 +44,12 @@ function onDocumentKeydown (evt) {
 disableEscEvt(hastagTextElement);
 disableEscEvt(descriptionTextElement);
 
-uploadControlElement.addEventListener('change', openForm);
-formCloseElement.addEventListener('click', closeForm);
+uploadControlElement.addEventListener('change', () => {
+  openForm();
+});
+formCloseElement.addEventListener('click', () => {
+  closeForm();
+});
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -65,10 +69,6 @@ const setFormSubmit = () => {
     if (isValid) {
       blockSubmitButton();
       sendData(new FormData(evt.target))
-        // .then(() => {
-        //   throw new Error();
-        // })
-        // проверка вывода ошибки
         .then(() => {
           closeForm();
           showMessage('success');
