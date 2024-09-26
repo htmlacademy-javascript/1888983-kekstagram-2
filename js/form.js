@@ -47,6 +47,7 @@ disableEscEvt(descriptionTextElement);
 uploadControlElement.addEventListener('change', () => {
   openForm();
 });
+
 formCloseElement.addEventListener('click', () => {
   closeForm();
 });

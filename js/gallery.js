@@ -1,7 +1,6 @@
 import {createThumbnails} from './thumbnails.js';
 import {openBigPicture} from './big-picture.js';
-
-const thumbnailListElement = document.querySelector('.pictures');
+import {thumbnailListElement} from './utils.js';
 
 const initGallery = (photos) => {
   thumbnailListElement.addEventListener('click', (evt) => {

@@ -33,14 +33,14 @@ const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POS
 
 // через async/await
 
-// // const load = async (route, errorText, method = Method.GET, body = null) => {
-// //   try {
-// //     const response = await fetch(`${BASE_URL}${route}`, {method, body});
-// //     return response.ok ? response.json() : Promise.reject();
-// //   } catch (err) {
-// //     throw new Error(errorText);
-// //   }
-// // };
+// const load = async (route, errorText, method = Method.GET, body = null) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}${route}`, {method, body});
+//     return response.ok ? response.json() : Promise.reject();
+//   } catch (err) {
+//     throw new Error(errorText);
+//   }
+// };
 
 // const getData = async () => await load(Route.GET_DATA, ErrorText.GET_DATA);
 
