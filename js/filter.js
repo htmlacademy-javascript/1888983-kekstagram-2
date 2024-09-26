@@ -2,6 +2,8 @@ import {createThumbnails} from './thumbnails.js';
 import {debounce} from './utils.js';
 import {thumbnailListElement} from './utils.js';
 
+const RENDER_DELAY = 500;
+
 const filtersListElement = document.querySelector('.img-filters');
 const filterButtonElement = filtersListElement.querySelectorAll('.img-filters__button');
 
@@ -19,7 +21,7 @@ const getFilteredPhotos = (filterId, photos) => {
   }
 };
 
-const addFilteredPhotos = (id, photos) => {
+const renderFilteredPhotos = (id, photos) => {
   const newGallery = getFilteredPhotos(id, photos);
   const pictures = thumbnailListElement.querySelectorAll('.picture');
   for(let i = 0; i < pictures.length; i++) {
@@ -35,7 +37,7 @@ const setFilters = (photos) => {
         filterButtonElement[i].classList.remove('img-filters__button--active');
       }
       evt.target.classList.add('img-filters__button--active');
-      debounce(() => addFilteredPhotos(evt.target.id, photos))();
+      debounce(() => renderFilteredPhotos(evt.target.id, photos), RENDER_DELAY)();
     }
   });
 };
