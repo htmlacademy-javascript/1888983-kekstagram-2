@@ -1,9 +1,11 @@
 import {validateForm, resetValidation} from './form-validation.js';
-import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
+import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, previewImageElement} from './utils.js';
 import {resetScale} from './scale.js';
 import {hideSlider, resetFilter} from './effects.js';
 import {sendData} from './api.js';
 import {showMessage} from './messages.js';
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -14,7 +16,8 @@ const formOverlayElement = formElement.querySelector('.img-upload__overlay');
 const uploadControlElement = formElement.querySelector('.img-upload__input');
 const formCloseElement = formElement.querySelector('.img-upload__cancel');
 const descriptionTextElement = formElement.querySelector('.text__description');
-const submitButton = formElement.querySelector('.img-upload__submit');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
+const previewEffectElements = formElement.querySelectorAll('.effects__preview');
 
 const openForm = () => {
   formOverlayElement.classList.remove('hidden');
@@ -45,7 +48,16 @@ disableEscEvt(hastagTextElement);
 disableEscEvt(descriptionTextElement);
 
 uploadControlElement.addEventListener('change', () => {
-  openForm();
+  const file = uploadControlElement.files[0];
+  const matches = FILE_TYPES.some((it) => file.name.toLowerCase().endsWith(it));
+  const pictureURL = URL.createObjectURL(file);
+  if (matches) {
+    previewImageElement.src = pictureURL;
+    previewEffectElements.forEach((previewElement) => {
+      previewElement.style.backgroundImage = `url(${pictureURL})`;
+    });
+    openForm();
+  }
 });
 
 formCloseElement.addEventListener('click', () => {
@@ -53,13 +65,13 @@ formCloseElement.addEventListener('click', () => {
 });
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
 
