@@ -1,4 +1,4 @@
-import {formElement, imageElement} from './utils.js';
+import {formElement, previewImageElement} from './utils.js';
 
 const effectsConfig = {
   none: {
@@ -47,7 +47,7 @@ const effectsListElement = formElement.querySelector('.effects__list');
 let currentFilter = 'none';
 
 const resetFilter = () => {
-  imageElement.style.filter = 'none';
+  previewImageElement.style.filter = 'none';
 };
 
 const hideSlider = () => {
@@ -66,7 +66,7 @@ const updateSlider = ({range, step}) => {
 };
 
 const applyEffect = ({filter, unit}) => {
-  imageElement.style.filter = `${filter}(${sliderValueElement.value}${unit})`;
+  previewImageElement.style.filter = `${filter}(${sliderValueElement.value}${unit})`;
 };
 
 noUiSlider.create(sliderElement, {

@@ -1,7 +1,7 @@
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const hastagTextElement = formElement.querySelector('.text__hashtags');
-const imageElement = formElement.querySelector('img');
+const previewImageElement = formElement.querySelector('.img-upload__preview img')
 const thumbnailListElement = document.querySelector('.pictures');
 
 const getId = () => {
@@ -39,4 +39,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imageElement, bodyElement, debounce, thumbnailListElement};
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, previewImageElement, bodyElement, debounce, thumbnailListElement};
