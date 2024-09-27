@@ -2,6 +2,7 @@ const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const hastagTextElement = formElement.querySelector('.text__hashtags');
 const imageElement = formElement.querySelector('img');
+const thumbnailListElement = document.querySelector('.pictures');
 
 const getId = () => {
   let lastGeneratedId = 0;
@@ -30,4 +31,12 @@ const disableEscEvt = (element) => {
   });
 };
 
-export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imageElement, bodyElement};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {getId, getRandomInteger, getRandomArrayElement, isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, imageElement, bodyElement, debounce, thumbnailListElement};

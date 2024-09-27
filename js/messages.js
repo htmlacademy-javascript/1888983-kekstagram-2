@@ -3,8 +3,13 @@ import {isEscapeKey, bodyElement} from './utils.js';
 const ALERT_SHOW_TIME = 5000;
 
 const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
-const sendSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
-const sendErrorTemplate = document.querySelector('#error').content.querySelector('.error');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const messageTypeToTemplate = {
+  success: successTemplate,
+  error: errorTemplate,
+};
 
 const showDataErrorMessage = () => {
   const dataErrorElement = dataErrorTemplate.cloneNode(true);
@@ -15,7 +20,7 @@ const showDataErrorMessage = () => {
   }, ALERT_SHOW_TIME);
 };
 
-const closeAlert = () => {
+const closeMessage = () => {
   bodyElement.lastChild.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
@@ -23,32 +28,25 @@ const closeAlert = () => {
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeAlert();
+    closeMessage();
   }
 }
 
-const onOverflowClick = (evt) => {
+const onMessageClick = (evt) => {
   if (evt.target.matches('.message')) {
-    closeAlert();
+    closeMessage();
   }
 };
 
-const showMessage = (outcome) => {
-  let element = '';
-  let button = '';
-  if (outcome === 'success') {
-    element = sendSuccessTemplate;
-    button = element.querySelector('.success__button');
-  } else {
-    element = sendErrorTemplate;
-    button = element.querySelector('.error__button');
-  }
-  bodyElement.append(element);
-  element.addEventListener('click', onOverflowClick);
+const showMessage = (type) => {
+  const message = messageTypeToTemplate[type].cloneNode(true);
+  const button = message.querySelector(`.${type}__button`);
+  bodyElement.append(message);
+  message.addEventListener('click', onMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
-  button.addEventListener('click', closeAlert);
+  button.addEventListener('click', () => {
+    closeMessage();
+  });
 };
-
-// Изящнее проверка не получилась
 
 export {showDataErrorMessage, showMessage};
