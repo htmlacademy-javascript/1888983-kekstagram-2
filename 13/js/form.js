@@ -1,5 +1,5 @@
 import {validateForm, resetValidation} from './form-validation.js';
-import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement} from './utils.js';
+import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, previewImageElement} from './utils.js';
 import {resetScale} from './scale.js';
 import {hideSlider, resetFilter} from './effects.js';
 import {sendData} from './api.js';
@@ -17,7 +17,6 @@ const uploadControlElement = formElement.querySelector('.img-upload__input');
 const formCloseElement = formElement.querySelector('.img-upload__cancel');
 const descriptionTextElement = formElement.querySelector('.text__description');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
-const previewImageElement = formElement.querySelector('.img-upload__preview');
 const previewEffectElements = formElement.querySelectorAll('.effects__preview');
 
 const openForm = () => {
@@ -53,9 +52,9 @@ uploadControlElement.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => file.name.toLowerCase().endsWith(it));
   const pictureURL = URL.createObjectURL(file);
   if (matches) {
-    previewImageElement.querySelector('img').src = pictureURL;
-    previewEffectElements.forEach((preview) => {
-      preview.style.backgroundImage = `url(${pictureURL})`;
+    previewImageElement.src = pictureURL;
+    previewEffectElements.forEach((previewElement) => {
+      previewElement.style.backgroundImage = `url(${pictureURL})`;
     });
     openForm();
   }
