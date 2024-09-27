@@ -1,7 +1,7 @@
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const hastagTextElement = formElement.querySelector('.text__hashtags');
-const previewImageElement = formElement.querySelector('.img-upload__preview img')
+const previewImageElement = formElement.querySelector('.img-upload__preview img');
 const thumbnailListElement = document.querySelector('.pictures');
 
 const getId = () => {
