@@ -21,8 +21,8 @@ const getFilteredPhotos = (filterId, photos) => {
 
 const renderFilteredPhotos = (id, photos) => {
   const filteredPhotos = getFilteredPhotos(id, photos);
-  const pictures = thumbnailListElement.querySelectorAll('.picture');
-  pictures.forEach((picture) => picture.remove());
+  const pictureElements = thumbnailListElement.querySelectorAll('.picture');
+  pictureElements.forEach((pictureElement) => pictureElement.remove());
   createThumbnails(filteredPhotos, thumbnailListElement);
 };
 

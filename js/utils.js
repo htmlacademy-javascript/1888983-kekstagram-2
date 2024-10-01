@@ -1,6 +1,6 @@
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
-const hastagTextElement = formElement.querySelector('.text__hashtags');
+const hashtagTextElement = formElement.querySelector('.text__hashtags');
 const previewImageElement = formElement.querySelector('.img-upload__preview img');
 const thumbnailListElement = document.querySelector('.pictures');
 
@@ -22,4 +22,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, previewImageElement, bodyElement, debounce, thumbnailListElement};
+export {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hashtagTextElement, previewImageElement, bodyElement, debounce, thumbnailListElement};
