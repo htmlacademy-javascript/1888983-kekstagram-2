@@ -12,10 +12,10 @@ const renderBigPicture = ({url, likes, description, comments}) => {
   renderComments(comments);
 };
 
-const openBigPicture = (рicture) => {
+const openBigPicture = (picture) => {
   bigPictureElement.classList.remove('hidden');
   toggleModalOpen();
-  renderBigPicture(рicture);
+  renderBigPicture(picture);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 

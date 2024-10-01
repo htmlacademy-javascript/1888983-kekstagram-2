@@ -1,3 +1,5 @@
+const RENDER_DELAY = 500;
+
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const hashtagTextElement = formElement.querySelector('.text__hashtags');
@@ -14,7 +16,7 @@ const disableEscEvt = (element) => {
   });
 };
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = RENDER_DELAY) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);

@@ -1,7 +1,6 @@
 import {createThumbnails} from './thumbnails.js';
 import {debounce, thumbnailListElement} from './utils.js';
 
-const RENDER_DELAY = 500;
 const MAX_RANDOM_PHOTOS = 10;
 
 const filtersListElement = document.querySelector('.img-filters');
@@ -26,7 +25,7 @@ const renderFilteredPhotos = (id, photos) => {
   createThumbnails(filteredPhotos, thumbnailListElement);
 };
 
-const debouncedRenderFilteredPhotos = debounce((filterId, photos) => renderFilteredPhotos(filterId, photos), RENDER_DELAY);
+const debouncedRenderFilteredPhotos = debounce((filterId, photos) => renderFilteredPhotos(filterId, photos));
 
 const setFilters = (photos) => {
   filtersListElement.addEventListener('click', (evt) => {
