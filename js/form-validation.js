@@ -2,7 +2,7 @@ import {formElement, hashtagTextElement} from './utils.js';
 
 const MAX_HASHTAGS = 5;
 
-const regex = /^#[a-zа-яё0-9]{1,19}$/i;
+const REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const pristine = new Pristine(formElement,
   {
@@ -19,7 +19,7 @@ const validateLength = () => getHashtags().length <= MAX_HASHTAGS;
 
 const validateFormat = () => {
   const hashtags = getHashtags();
-  return hashtags.every((hashtag) => regex.test(hashtag)) || hashtags[0] === '';
+  return hashtags.every((hashtag) => REGEX.test(hashtag)) || hashtags[0] === '';
 };
 
 const validateDuplicates = () => {
