@@ -28,7 +28,6 @@ const validateDuplicates = () => {
   return set.size === hastags.length;
 };
 
-
 pristine.addValidator(hastagTextElement, validateLength, `Не более ${MAX_HASTAGS} хэштегов`);
 pristine.addValidator(hastagTextElement, validateFormat, 'Каждый хэштег: должен начинаться с #, от 2 до 20 символов, только буквы и числа');
 pristine.addValidator(hastagTextElement, validateDuplicates, 'Хэштеги не должны повторяться');
