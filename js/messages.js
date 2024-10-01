@@ -21,7 +21,7 @@ const showDataErrorMessage = () => {
 };
 
 const closeMessage = () => {
-  bodyElement.lastChild.remove();
+  bodyElement.querySelector('.message').remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -39,12 +39,12 @@ const onMessageClick = (evt) => {
 };
 
 const showMessage = (type) => {
-  const message = messageTypeToTemplate[type].cloneNode(true);
-  const button = message.querySelector(`.${type}__button`);
-  bodyElement.append(message);
-  message.addEventListener('click', onMessageClick);
+  const messageElement = messageTypeToTemplate[type].cloneNode(true);
+  const buttonElement = messageElement.querySelector(`.${type}__button`);
+  bodyElement.append(messageElement);
+  messageElement.addEventListener('click', onMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
-  button.addEventListener('click', () => {
+  buttonElement.addEventListener('click', () => {
     closeMessage();
   });
 };

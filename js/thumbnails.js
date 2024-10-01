@@ -16,4 +16,3 @@ const createThumbnails = (photos, containerElement) => {
 };
 
 export {createThumbnails};
-

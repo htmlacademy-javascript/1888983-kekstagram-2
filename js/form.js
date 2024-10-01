@@ -1,5 +1,5 @@
 import {validateForm, resetValidation} from './form-validation.js';
-import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hastagTextElement, previewImageElement} from './utils.js';
+import {isEscapeKey, toggleModalOpen, disableEscEvt, formElement, hashtagTextElement, previewImageElement} from './utils.js';
 import {resetScale} from './scale.js';
 import {hideSlider, resetFilter} from './effects.js';
 import {sendData} from './api.js';
@@ -34,7 +34,6 @@ const closeForm = () => {
   resetValidation();
   resetScale();
   resetFilter();
-  uploadControlElement.value = '';
 };
 
 function onDocumentKeydown (evt) {
@@ -44,7 +43,7 @@ function onDocumentKeydown (evt) {
   }
 }
 
-disableEscEvt(hastagTextElement);
+disableEscEvt(hashtagTextElement);
 disableEscEvt(descriptionTextElement);
 
 uploadControlElement.addEventListener('change', () => {
